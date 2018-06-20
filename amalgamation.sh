@@ -67,6 +67,7 @@ $SCRIPTPATH/include/roaring/containers/mixed_xor.h
 $SCRIPTPATH/include/roaring/containers/containers.h
 $SCRIPTPATH/include/roaring/roaring_array.h
 $SCRIPTPATH/include/roaring/misc/configreport.h
+$SCRIPTPATH/include/roaring/ordered_writer.h
 "
 
 # .c implementation files

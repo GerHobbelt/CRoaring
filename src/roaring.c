@@ -11,6 +11,7 @@
 #include <roaring/containers/containers.h>
 #include <roaring/bitset_util.h>
 #include <roaring/array_util.h>
+#include <roaring/ordered_writer.h>
 
 #ifdef __cplusplus
 using namespace ::roaring::internal;
@@ -84,6 +85,38 @@ roaring_bitmap_t *roaring_bitmap_create_with_capacity(uint32_t cap) {
 
 bool roaring_bitmap_init_with_capacity(roaring_bitmap_t *r, uint32_t cap) {
     return ra_init_with_capacity(&r->high_low_container, cap);
+}
+
+bool roaring_bitmap_add_ordered(roaring_bitmap_t *r, size_t n_args, const uint32_t *vals) {
+
+    if (n_args == 0) {
+        return true;
+    }
+    if (n_args == 1) {
+        roaring_bitmap_add(r, vals[0]);
+        return true;
+    }
+
+    if (n_args < 1024 || r->high_low_container.size > 0) {
+        roaring_bitmap_add_many(r, n_args, vals);
+        return true;
+    }
+
+    roaring_bitmap_writer_t *writer = roaring_bitmap_writer_create(r);
+
+    size_t i = 0;
+    uint32_t val;
+    for (; i < n_args; i++) {
+        memcpy(&val, vals + i, sizeof(val));
+        if (!roaring_bitmap_writer_add(writer, val)) {
+            roaring_bitmap_writer_free(writer);
+            return false;
+        }
+    }
+    roaring_bitmap_writer_flush(writer);
+    roaring_bitmap_writer_free(writer);
+
+    return true;
 }
 
 
