@@ -1,7 +1,6 @@
 #ifndef ROARING_ORDERED_WRITER
 #define ROARING_ORDERED_WRITER
 
-#include <assert.h>
 #include <roaring/roaring.h>
 
 typedef struct roaring_bitmap_writer_s {

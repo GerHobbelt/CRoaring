@@ -1,19 +1,25 @@
-#include <assert.h>
-#include <roaring/roaring.h>
 #include <roaring/ordered_writer.h>
+#include <roaring/roaring_array.h>
+#include <string.h>
 
-roaring_bitmap_writer_t *roaring_bitmap_writer_create(roaring_bitmap_t *target) {
-    roaring_bitmap_writer_t *result = (roaring_bitmap_writer_t *) malloc(sizeof(roaring_bitmap_writer_t));
-    result->bitmap = (uint64_t *) malloc(sizeof(uint64_t) * BITSET_CONTAINER_SIZE_IN_WORDS);
-    memset(result->bitmap, 0, sizeof(uint64_t) * BITSET_CONTAINER_SIZE_IN_WORDS);
+roaring_bitmap_writer_t *roaring_bitmap_writer_create(
+    roaring_bitmap_t *target) {
+    roaring_bitmap_writer_t *result =
+        (roaring_bitmap_writer_t *)malloc(sizeof(roaring_bitmap_writer_t));
+    result->bitmap =
+        (uint64_t *)malloc(sizeof(uint64_t) * BITSET_CONTAINER_SIZE_IN_WORDS);
+    memset(result->bitmap, 0,
+           sizeof(uint64_t) * BITSET_CONTAINER_SIZE_IN_WORDS);
     result->target = target;
     result->current_key = 0;
     result->dirty = false;
     return result;
 }
 
-void roaring_bitmap_writer_set(roaring_bitmap_writer_t *result, roaring_bitmap_t *target) {
-    memset(result->bitmap, 0, sizeof(uint64_t) * BITSET_CONTAINER_SIZE_IN_WORDS);
+void roaring_bitmap_writer_set(roaring_bitmap_writer_t *result,
+                               roaring_bitmap_t *target) {
+    memset(result->bitmap, 0,
+           sizeof(uint64_t) * BITSET_CONTAINER_SIZE_IN_WORDS);
     result->target = target;
     result->current_key = 0;
     result->dirty = false;
@@ -35,17 +41,20 @@ void roaring_bitmap_writer_flush(roaring_bitmap_writer_t *writer) {
     bitset_container_t *newac = bitset_container_create();
 
     newac->cardinality = -1;
-    memcpy(newac->array, bitmap, sizeof(uint64_t) * BITSET_CONTAINER_SIZE_IN_WORDS);
+    memcpy(newac->words, bitmap,
+           sizeof(uint64_t) * BITSET_CONTAINER_SIZE_IN_WORDS);
 
-    uint8_t new_typecode = BITSET_CONTAINER_TYPE_CODE;
+    uint8_t new_typecode = BITSET_CONTAINER_TYPE;
     void *newcontainer = container_repair_after_lazy(newac, &new_typecode);
 
-    ra_append(&target->high_low_container, writer->current_key, newcontainer, new_typecode);
+    ra_append(&target->high_low_container, writer->current_key, newcontainer,
+              new_typecode);
 
     memset(bitmap, 0, sizeof(uint64_t) * BITSET_CONTAINER_SIZE_IN_WORDS);
 }
 
-inline bool roaring_bitmap_writer_add(roaring_bitmap_writer_t *writer, const uint32_t val) {
+inline bool roaring_bitmap_writer_add(roaring_bitmap_writer_t *writer,
+                                      const uint32_t val) {
     const uint16_t hb = val >> 16;
     const uint16_t lb = val & 0xFFFF;
 
