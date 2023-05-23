@@ -7,7 +7,6 @@ configuration { "*" }
 uuid "C8804B2B-1A46-4E89-955A-92AEFB6CDBB3"
 
 includedirs {
-  "include",
   "cpp",
 }
 

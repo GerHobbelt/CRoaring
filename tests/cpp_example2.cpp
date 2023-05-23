@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "roaring.hh"
+#include "test.h"
 
 using namespace roaring;
 
@@ -11,7 +12,7 @@ int main() {
     }
 
     // check whether a value is contained
-    assert(r1.contains(500));
+    assert_true(r1.contains(500));
 
     // compute how many bits there are:
     uint32_t cardinality = r1.cardinality();
@@ -47,11 +48,11 @@ int main() {
     delete[] arr1;
 
     // bitmaps shall be equal
-    assert(r1 == r1f);
+    assert_true(r1 == r1f);
 
     // we can copy and compare bitmaps
     Roaring z(r3);
-    assert(r3 == z);
+    assert_true(r3 == z);
 
     // we can compute union two-by-two
     Roaring r1_2_3 = r1 | r2;
@@ -60,17 +61,23 @@ int main() {
     // we can compute a big union
     const Roaring *allmybitmaps[] = {&r1, &r2, &r3};
     Roaring bigunion = Roaring::fastunion(3, allmybitmaps);
-    assert(r1_2_3 == bigunion);
+    assert_true(r1_2_3 == bigunion);
 
     // we can compute intersection two-by-two
     Roaring i1_2 = r1 & r2;
 
+#if CROARING_IS_BIG_ENDIAN
+    printf("We omit serialization tests because you have a big endian system.\n");
+#else
     // we can write a bitmap to a pointer and recover it later
     uint32_t expectedsize = r1.getSizeInBytes();
     char *serializedbytes = new char[expectedsize];
     r1.write(serializedbytes);
-    Roaring t = Roaring::read(serializedbytes);
-    assert(r1 == t);
+    // readSafe will not overflow, but the resulting bitmap
+    // is only valid and usable if the input follows the
+    // Roaring specification: https://github.com/RoaringBitmap/RoaringFormatSpec/
+    Roaring t = Roaring::readSafe(serializedbytes, expectedsize);
+    assert_true(r1 == t);
     delete[] serializedbytes;
 
     // we can iterate over all values using custom functions
@@ -88,11 +95,12 @@ int main() {
         ++counter;
     }
     // counter == t.cardinality()
-
+#endif
     // we can move iterators to skip values
     const uint32_t manyvalues[] = {2, 3, 4, 7, 8};
     Roaring rogue(5, manyvalues);
     Roaring::const_iterator j = rogue.begin();
     j.equalorlarger(4);  // *j == 4
+
     return EXIT_SUCCESS;
 }

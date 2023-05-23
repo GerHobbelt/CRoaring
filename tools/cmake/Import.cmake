@@ -1,10 +1,9 @@
-# Based on github.com/simdjson/simdjson/blob/master/dependencies/import.cmocka by @friendlyanon
+set(dep_root "${PROJECT_SOURCE_DIR}/dependencies/.cache")
 
-set(dep_root "${CMAKE_CURRENT_SOURCE_DIR}/.cache")
 
-function(import_dependency NAME URL)
-  message(STATUS "Importing ${NAME} (${URL})")
-  set(target "${CMAKE_CURRENT_SOURCE_DIR}/${NAME}")
+function(import_dependency NAME GITHUB_REPO COMMIT)
+  message(STATUS "Importing ${NAME} (${GITHUB_REPO}@${COMMIT})")
+  set(target "${dep_root}/${NAME}")
 
   # If the folder exists in the cache, then we assume that everything is as
   # should be and do nothing
@@ -13,12 +12,12 @@ function(import_dependency NAME URL)
     return()
   endif()
 
-  set(archive "${dep_root}/archive.tar.xz")
+  set(zip_url "https://github.com/${GITHUB_REPO}/archive/${COMMIT}.zip")
+  set(archive "${dep_root}/archive.zip")
   set(dest "${dep_root}/_extract")
 
-  file(DOWNLOAD "${URL}" "${archive}")
+  file(DOWNLOAD "${zip_url}" "${archive}")
   file(MAKE_DIRECTORY "${dest}")
-  file(GLOB dir LIST_DIRECTORIES YES "${dep_root}/*")
   execute_process(
           WORKING_DIRECTORY "${dest}"
           COMMAND "${CMAKE_COMMAND}" -E tar xf "${archive}")
@@ -31,4 +30,21 @@ function(import_dependency NAME URL)
   file(RENAME "${dir}" "${target}")
 
   set("${NAME}_SOURCE_DIR" "${target}" PARENT_SCOPE)
+endfunction()
+
+# Delegates to the dependency
+macro(add_dependency NAME)
+  if(NOT DEFINED "${NAME}_SOURCE_DIR")
+    message(FATAL_ERROR "Missing ${NAME}_SOURCE_DIR variable")
+  endif()
+
+  add_subdirectory("${${NAME}_SOURCE_DIR}" "${PROJECT_BINARY_DIR}/_deps/${NAME}" EXCLUDE_FROM_ALL)
+endmacro()
+
+function(set_off NAME)
+  set("${NAME}" OFF CACHE INTERNAL "")
+endfunction()
+
+function(set_on NAME)
+  set("${NAME}" ON CACHE INTERNAL "")
 endfunction()

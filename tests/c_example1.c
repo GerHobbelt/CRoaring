@@ -1,7 +1,9 @@
 #include <roaring/roaring.h>
+#include <roaring/misc/configreport.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "test.h"
 
 bool roaring_iterator_sumall(uint32_t value, void *param) {
     *(uint32_t *)param += value;
@@ -9,12 +11,13 @@ bool roaring_iterator_sumall(uint32_t value, void *param) {
 }
 
 int main() {
+    tellmeall();
     // create a new empty bitmap
     roaring_bitmap_t *r1 = roaring_bitmap_create();
     // then we can add values
     for (uint32_t i = 100; i < 1000; i++) roaring_bitmap_add(r1, i);
     // check whether a value is contained
-    assert(roaring_bitmap_contains(r1, 500));
+    assert_true(roaring_bitmap_contains(r1, 500));
     // compute how many bits there are:
     uint32_t cardinality = roaring_bitmap_get_cardinality(r1);
     printf("Cardinality = %d \n", cardinality);
@@ -26,7 +29,6 @@ int main() {
     uint32_t expectedsizerun = roaring_bitmap_portable_size_in_bytes(r1);
     printf("size before run optimize %d bytes, and after %d bytes\n",
            expectedsizebasic, expectedsizerun);
-
     // create a new bitmap containing the values {1,2,3,5,6}
     roaring_bitmap_t *r2 = roaring_bitmap_of(5, 1, 2, 3, 5, 6);
     roaring_bitmap_printf(r2);  // print it
@@ -38,24 +40,24 @@ int main() {
     // we can also go in reverse and go from arrays to bitmaps
     uint64_t card1 = roaring_bitmap_get_cardinality(r1);
     uint32_t *arr1 = (uint32_t *)malloc(card1 * sizeof(uint32_t));
-    assert(arr1 != NULL);
+    assert_true(arr1 != NULL);
     roaring_bitmap_to_uint32_array(r1, arr1);
     roaring_bitmap_t *r1f = roaring_bitmap_of_ptr(card1, arr1);
     free(arr1);
-    assert(roaring_bitmap_equals(r1, r1f));  // what we recover is equal
+    assert_true(roaring_bitmap_equals(r1, r1f));  // what we recover is equal
     roaring_bitmap_free(r1f);
 
     // we can go from arrays to bitmaps from "offset" by "limit"
     size_t offset = 100;
     size_t limit = 1000;
     uint32_t *arr3 = (uint32_t *)malloc(limit * sizeof(uint32_t));
-    assert(arr3 != NULL);
+    assert_true(arr3 != NULL);
     roaring_bitmap_range_uint32_array(r1, offset, limit, arr3);
     free(arr3);
 
     // we can copy and compare bitmaps
     roaring_bitmap_t *z = roaring_bitmap_copy(r3);
-    assert(roaring_bitmap_equals(r3, z));  // what we recover is equal
+    assert_true(roaring_bitmap_equals(r3, z));  // what we recover is equal
     roaring_bitmap_free(z);
 
     // we can compute union two-by-two
@@ -65,12 +67,12 @@ int main() {
     // we can compute a big union
     const roaring_bitmap_t *allmybitmaps[] = {r1, r2, r3};
     roaring_bitmap_t *bigunion = roaring_bitmap_or_many(3, allmybitmaps);
-    assert(
+    assert_true(
         roaring_bitmap_equals(r1_2_3, bigunion));  // what we recover is equal
     // can also do the big union with a heap
     roaring_bitmap_t *bigunionheap =
         roaring_bitmap_or_many_heap(3, allmybitmaps);
-    assert(roaring_bitmap_equals(r1_2_3, bigunionheap));
+    assert_true(roaring_bitmap_equals(r1_2_3, bigunionheap));
 
     roaring_bitmap_free(r1_2_3);
     roaring_bitmap_free(bigunion);
@@ -85,17 +87,18 @@ int main() {
     char *serializedbytes = (char*)malloc(expectedsize);
     roaring_bitmap_portable_serialize(r1, serializedbytes);
     roaring_bitmap_t *t = roaring_bitmap_portable_deserialize(serializedbytes);
-    assert(roaring_bitmap_equals(r1, t));  // what we recover is equal
+    assert_true(roaring_bitmap_equals(r1, t));  // what we recover is equal
     roaring_bitmap_free(t);
     // we can also check whether there is a bitmap at a memory location without
     // reading it
     size_t sizeofbitmap =
         roaring_bitmap_portable_deserialize_size(serializedbytes, expectedsize);
-    assert(sizeofbitmap ==
+    printf("\nsizeofbitmap = %zu \n", sizeofbitmap);
+    assert_true(sizeofbitmap ==
            expectedsize);  // sizeofbitmap would be zero if no bitmap were found
     // we can also read the bitmap "safely" by specifying a byte size limit:
     t = roaring_bitmap_portable_deserialize_safe(serializedbytes, expectedsize);
-    assert(roaring_bitmap_equals(r1, t));  // what we recover is equal
+    assert_true(roaring_bitmap_equals(r1, t));  // what we recover is equal
     roaring_bitmap_free(t);
 
     free(serializedbytes);
@@ -134,5 +137,6 @@ int main() {
     roaring_bitmap_free(r1);
     roaring_bitmap_free(r2);
     roaring_bitmap_free(r3);
+    printf("Success.\n");
     return EXIT_SUCCESS;
 }

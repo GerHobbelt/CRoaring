@@ -305,11 +305,6 @@ static inline bool run_container_empty(
 /* Copy one container into another. We assume that they are distinct. */
 void run_container_copy(const run_container_t *src, run_container_t *dst);
 
-/* Set the cardinality to zero (does not release memory). */
-static inline void run_container_clear(run_container_t *run) {
-    run->n_runs = 0;
-}
-
 /**
  * Append run described by vl to the run container, possibly merging.
  * It is assumed that the run would be inserted at the end of the container, no
@@ -486,6 +481,7 @@ static inline int32_t run_container_size_in_bytes(
 /**
  * Return true if the two containers have the same content.
  */
+ALLOW_UNALIGNED
 static inline bool run_container_equals(const run_container_t *container1,
                           const run_container_t *container2) {
     if (container1->n_runs != container2->n_runs) {
@@ -610,14 +606,15 @@ static inline void run_container_add_range_nruns(run_container_t* run,
 }
 
 /**
- * Add all values in range [min, max]
+ * Add all values in range [min, max]. This function is currently unused
+ * and left as documentation.
  */
-static inline void run_container_add_range(run_container_t* run,
+/*static inline void run_container_add_range(run_container_t* run,
                                            uint32_t min, uint32_t max) {
     int32_t nruns_greater = rle16_count_greater(run->runs, run->n_runs, max);
     int32_t nruns_less = rle16_count_less(run->runs, run->n_runs - nruns_greater, min);
     run_container_add_range_nruns(run, min, max, nruns_less, nruns_greater);
-}
+}*/
 
 /**
  * Shifts last $count elements either left (distance < 0) or right (distance > 0)

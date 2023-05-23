@@ -22,18 +22,18 @@ void run_cache_flush(run_container_t* B) { (void)B; }
 
 // tries to put array in cache
 void run_cache_prefetch(run_container_t* B) {
-#ifdef CROARING_IS_X64
+#if !CROARING_REGULAR_VISUAL_STUDIO
+#if CROARING_IS_X64
     const int32_t CACHELINESIZE =
         computecacheline();  // 64 bytes per cache line
 #else
     const int32_t CACHELINESIZE = 64;
 #endif
-#if !(defined(_MSC_VER) && !defined(__clang__))
     for (int32_t k = 0; k < B->n_runs * 2;
          k += CACHELINESIZE / (int32_t)sizeof(uint16_t)) {
         __builtin_prefetch(B->runs + k);
     }
-#endif
+#endif // !CROARING_REGULAR_VISUAL_STUDIO
 }
 
 int add_test(run_container_t* B) {
@@ -141,8 +141,8 @@ int main() {
     printf("intersection cardinality = %d \n", answer);
     BEST_TIME(intersection_test(B1, B2, BO), answer, repeat, answer);
     printf("==intersection and union test 2 \n");
-    run_container_clear(B1);
-    run_container_clear(B2);
+    B1->n_runs = 0;
+    B2->n_runs = 0;
     for (int x = 0; x < (1 << 16); x += 64) {
         int length = x % 11;
         for (int y = 0; y < length; ++y)

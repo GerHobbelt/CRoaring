@@ -319,30 +319,8 @@ extern inline container_t *ra_get_container_at_index(
     const roaring_array_t *ra, uint16_t i,
     uint8_t *typecode);
 
-#ifdef ROARING_NOT_USED
-container_t *ra_get_writable_container(
-    roaring_array_t *ra, uint16_t x,
-    uint8_t *typecode
-){
-    int i = binarySearch(ra->keys, (int32_t)ra->size, x);
-    if (i < 0) return NULL;
-    *typecode = ra->typecodes[i];
-    return get_writable_copy_if_shared(ra->containers[i], typecode);
-}
-
-container_t *ra_get_writable_container_at_index(
-    roaring_array_t *ra, uint16_t i,
-    uint8_t *typecode
-){
-    assert(i < ra->size);
-    *typecode = ra->typecodes[i];
-    return get_writable_copy_if_shared(ra->containers[i], typecode);
-}
-#endif
-
-uint16_t ra_get_key_at_index(const roaring_array_t *ra, uint16_t i) {
-    return ra->keys[i];
-}
+extern inline uint16_t ra_get_key_at_index(const roaring_array_t *ra,
+                                           uint16_t i);
 
 extern inline int32_t ra_get_index(const roaring_array_t *ra, uint16_t x);
 
@@ -564,6 +542,7 @@ size_t ra_portable_size_in_bytes(const roaring_array_t *ra) {
     return count;
 }
 
+// This function is endian-sensitive.
 size_t ra_portable_serialize(const roaring_array_t *ra, char *buf) {
     char *initbuf = buf;
     uint32_t startOffset = 0;
@@ -712,10 +691,11 @@ size_t ra_portable_deserialize_size(const char *buf, const size_t maxbytes) {
     return bytestotal;
 }
 
-
 // this function populates answer from the content of buf (reading up to maxbytes bytes).
 // The function returns false if a properly serialized bitmap cannot be found.
 // if it returns true, readbytes is populated by how many bytes were read, we have that *readbytes <= maxbytes.
+//
+// This function is endian-sensitive.
 bool ra_portable_deserialize(roaring_array_t *answer, const char *buf, const size_t maxbytes, size_t * readbytes) {
     *readbytes = sizeof(int32_t);// for cookie
     if(*readbytes > maxbytes) {

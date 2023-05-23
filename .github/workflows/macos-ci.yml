@@ -1,7 +1,11 @@
 name: Macos-CI
 
-on: push
+'on':
+  - push
+  - pull_request
 
+permissions:
+  contents: read
 
 jobs:
   ci:

@@ -163,18 +163,12 @@ DEFINE_TEST(test_robust_deserialize7) {
     test_deserialize(filename);
 }
 
-DEFINE_TEST(test_robust_deserialize8) {
-    char filename[1024];
-
-    strcpy(filename, TEST_DATA_DIR);
-    strcat(filename, "crashproneinput8.bin");
-
-    test_deserialize(filename);
-}
-
 int main() {
     tellmeall();
-
+#if CROARING_IS_BIG_ENDIAN
+    printf("Big-endian IO unsupported.\n");
+    return EXIT_SUCCESS;
+#else
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(test_robust_deserialize1),
         cmocka_unit_test(test_robust_deserialize2),
@@ -186,4 +180,5 @@ int main() {
      };
 
     return cmocka_run_group_tests(tests, NULL, NULL);
+#endif
 }

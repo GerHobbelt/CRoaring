@@ -3,7 +3,7 @@ from conans import ConanFile
 
 class CRoaringConan(ConanFile):
     name = "croaring"
-    version = "4.0.0"
+    version = "1.1.2"
     url = "https://github.com/Esri/CRoaring/tree/runtimecore"
     license = "https://github.com/Esri/CRoaring/blob/runtimecore/LICENSE"
     description = "Compressed bitmaps in C (and C++)."

@@ -1,12 +1,16 @@
-name: Ubuntu-18-CI
+name: Ubuntu-Debug-Sanitized-CI
 
-on: push
+'on':
+  - push
+  - pull_request
 
+permissions:
+  contents: read
 
 jobs:
   ci:
     name: ubuntu-gcc
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     env:
       CC: gcc
@@ -18,6 +22,6 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake  ..
+          cmake  -DCMAKE_BUILD_TYPE=Debug -DROARING_SANITIZE=ON ..
           cmake --build . 
           ctest . --output-on-failure

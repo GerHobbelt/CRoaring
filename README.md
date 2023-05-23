@@ -1,4 +1,11 @@
-# CRoaring [![Build status](https://ci.appveyor.com/api/projects/status/gr4ibsflqs9by1bc/branch/master?svg=true)](https://ci.appveyor.com/project/lemire/croaring/branch/master) [![Build Status](https://cloud.drone.io/api/badges/RoaringBitmap/CRoaring/status.svg)](https://cloud.drone.io/RoaringBitmap/CRoaring)
+# CRoaring 
+
+[![Ubuntu-CI](https://github.com/RoaringBitmap/CRoaring/actions/workflows/ubuntu-noexcept-ci.yml/badge.svg)](https://github.com/RoaringBitmap/CRoaring/actions/workflows/ubuntu-noexcept-ci.yml) [![VS17-CI](https://github.com/RoaringBitmap/CRoaring/actions/workflows/vs17-ci.yml/badge.svg)](https://github.com/RoaringBitmap/CRoaring/actions/workflows/vs17-ci.yml)
+[![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/croaring.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:croaring)
+
+[![Doxygen Documentation](https://img.shields.io/badge/docs-doxygen-green.svg)](http://roaringbitmap.github.io/CRoaring/)
+
+
 
 Portable Roaring bitmaps in C (and C++) with full support for your favorite compiler (GNU GCC, LLVM's clang, Visual Studio). Included in the [Awesome C](https://github.com/kozross/awesome-c) list of open source C software.
 
@@ -53,6 +60,11 @@ of the latest hardware. Roaring bitmaps are already available on a variety of pl
 - Recent C compiler supporting the C11 standard (GCC 7 or better, LLVM 7.0 or better, Xcode 11 or better), there is also an optional C++ class that requires a C++ compiler supporting the C++11 standard.
 - CMake (to contribute to the project, users can rely on amalgamation/unity builds if they do not wish to use CMake).
 - Under x64 systems, the library provides runtime dispatch so that optimized functions are called based on the detected CPU features. It works with GCC, clang (version 9 and up) and Visual Studio (2017 and up). Other systems (e.g., ARM) do not need runtime dispatch.
+
+Hardly anyone has access to an actual big-endian system. Nevertheless,
+We support big-endian systems such as IBM s390x through emulators---except for
+IO serialization which is only supported on little-endian systems (see [issue 423](https://github.com/RoaringBitmap/CRoaring/issues/423)).
+
 
 # Using as a CMake dependency
 
@@ -168,6 +180,43 @@ The C interface is found in the file ``include/roaring/roaring.h``. We have C++ 
 
 Some users have to deal with large volumes of data. It  may be important for these users to be aware of the `addMany` (C++) `roaring_bitmap_or_many` (C) functions as it is much faster and economical to add values in batches when possible. Furthermore, calling periodically the `runOptimize` (C++) or `roaring_bitmap_run_optimize` (C) functions may help.
 
+
+# Running microbenchmarks
+
+We have microbenchmarks constructed with the Google Benchmarks.
+Under Linux or macOS, you may run them as follows:
+
+```
+cmake -B build
+cmake --build build
+./build/microbenchmarks/bench
+```
+
+By default, the benchmark tools picks one data set (e.g., `CRoaring/benchmarks/realdata/census1881`).
+We have several data sets and you may pick others:
+
+```
+./build/microbenchmarks/bench benchmarks/realdata/wikileaks-noquotes 
+```
+
+You may disable some functionality for the purpose of benchmarking. For example, assuming you
+have an x64 processor, you could benchmark the code without AVX-512 even if both your processor 
+and compiler supports it:
+
+```
+cmake -B buildnoavx512 -D ROARING_DISABLE_AVX512=ON
+cmake --build buildnoavx512
+./buildnoavx512/microbenchmarks/bench
+```
+
+You can benchmark without AVX or AVX-512 as well:
+
+```
+cmake -B buildnoavx -D ROARING_DISABLE_AVX=ON
+cmake --build buildnoavx
+./buildnoavx/microbenchmarks/bench
+```
+
 # Custom memory allocators
 For general users, CRoaring would apply default allocator without extra codes. But global memory hook is also provided for those who want a custom memory allocator. Here is an example:
 ```C
@@ -276,6 +325,11 @@ int main() {
     uint32_t expectedsize = roaring_bitmap_portable_size_in_bytes(r1);
     char *serializedbytes = malloc(expectedsize);
     roaring_bitmap_portable_serialize(r1, serializedbytes);
+    // For additional safety, you may replace roaring_bitmap_portable_deserialize by
+    // roaring_bitmap_portable_deserialize_safe.
+    // Note: it is expected that the input follows the specification
+    // https://github.com/RoaringBitmap/RoaringFormatSpec
+    // otherwise the result may be unusable.
     roaring_bitmap_t *t = roaring_bitmap_portable_deserialize(serializedbytes);
     assert(roaring_bitmap_equals(r1, t));  // what we recover is equal
     roaring_bitmap_free(t);
@@ -287,6 +341,9 @@ int main() {
            expectedsize);  // sizeofbitmap would be zero if no bitmap were found
     // we can also read the bitmap "safely" by specifying a byte size limit:
     t = roaring_bitmap_portable_deserialize_safe(serializedbytes, expectedsize);
+    // It is still necessary for the content of seriallizedbytes to follow
+    // the standard: https://github.com/RoaringBitmap/RoaringFormatSpec
+    // This is guaranted when calling 'roaring_bitmap_portable_deserialize'.
     assert(roaring_bitmap_equals(r1, t));  // what we recover is equal
     roaring_bitmap_free(t);
 
@@ -330,6 +387,77 @@ int main() {
 }
 ```
 
+# Conventional bitsets (C)
+
+We support convention bitsets (uncompressed) as part of the library.
+
+Simple example:
+
+```C
+bitset_t * b = bitset_create();
+bitset_set(b,10);
+bitset_get(b,10);// returns true
+bitset_free(b); // frees memory
+```
+
+More advanced example:
+
+```C
+    bitset_t *b = bitset_create();
+    for (int k = 0; k < 1000; ++k) {
+        bitset_set(b, 3 * k);
+    }
+    // We have bitset_count(b) == 1000.
+    // We have bitset_get(b, 3) is true
+    // You can iterate through the values:
+    size_t k = 0;
+    for (size_t i = 0; bitset_next_set_bit(b, &i); i++) {
+        // You will have i == k
+        k += 3;
+    }
+    // We support a wide range of operations on two bitsets such as
+    // bitset_inplace_symmetric_difference(b1,b2);
+    // bitset_inplace_symmetric_difference(b1,b2);
+    // bitset_inplace_difference(b1,b2);// should make no difference
+    // bitset_inplace_union(b1,b2);
+    // bitset_inplace_intersection(b1,b2);
+    // bitsets_disjoint
+    // bitsets_intersect
+```
+
+In some instances, you may want to convert a Roaring bitmap into a conventional (uncompressed) bitset.
+Indeed, bitsets have advantages such as higher query performances in some cases. The following code
+illustrates how you may do so:
+
+```C
+    roaring_bitmap_t *r1 = roaring_bitmap_create();
+    for (uint32_t i = 100; i < 100000; i+= 1 + (i%5)) {
+     roaring_bitmap_add(r1, i);
+    }
+    for (uint32_t i = 100000; i < 500000; i+= 100) {
+     roaring_bitmap_add(r1, i);
+    }
+    roaring_bitmap_add_range(r1, 500000, 600000);
+    bitset_t * bitset = bitset_create();
+    bool success = roaring_bitmap_to_bitset(r1, bitset);
+    assert(success); // could fail due to memory allocation.
+    assert(bitset_count(bitset) == roaring_bitmap_get_cardinality(r1));
+    // You can then query the bitset:
+    for (uint32_t i = 100; i < 100000; i+= 1 + (i%5)) {
+        assert(bitset_get(bitset,i));
+    }
+    for (uint32_t i = 100000; i < 500000; i+= 100) {
+        assert(bitset_get(bitset,i));
+    }
+    // you must free the memory:
+    bitset_free(bitset);
+    roaring_bitmap_free(r1);
+```
+
+You should be aware that a convention bitset (`bitset_t *`) may use much more
+memory than a Roaring bitmap in some cases. You should run benchmarks to determine
+whether the conversion to a bitset has performance benefits in your case.
+
 # Example (C++)
 
 
@@ -372,6 +500,11 @@ int main() {
     r2.printf();
     printf("\n");
 
+    // create a new bitmap with initializer list
+    Roaring r2i = Roaring::bitmapOfList({1, 2, 3, 5, 6});
+
+    assert(r2i == r2);
+
     // we can also create a bitmap from a pointer to 32-bit integers
     const uint32_t values[] = {2, 3, 4};
     Roaring r3(3, values);
@@ -406,7 +539,10 @@ int main() {
     uint32_t expectedsize = r1.getSizeInBytes();
     char *serializedbytes = new char[expectedsize];
     r1.write(serializedbytes);
-    Roaring t = Roaring::read(serializedbytes);
+    // readSafe will not overflow, but the resulting bitmap
+    // is only valid and usable if the input follows the
+    // Roaring specification: https://github.com/RoaringBitmap/RoaringFormatSpec/
+    Roaring t = Roaring::readSafe(serializedbytes, expectedsize);
     assert(r1 == t);
     delete[] serializedbytes;
 
@@ -477,14 +613,6 @@ ctest
 ```
 
 
-To run real-data benchmark
-
-```
-./real_bitmaps_benchmark ../benchmarks/realdata/census1881
-```
-where you must adjust the path "../benchmarks/realdata/census1881" so that it points to one of the directories in the benchmarks/realdata directory.
-
-
 To check that your code abides by the style convention (make sure that ``clang-format`` is installed):
 
 ```
@@ -517,7 +645,7 @@ To build with at least Visual Studio 2017 directly in the IDE:
 - For testing, in the Standard toolbar, drop the ``Select Startup Item...`` menu and choose one of the tests. Run the test by pressing the button to the left of the dropdown.
 
 
-We have optimizations specific to AVX2 in the code, and they are turned dynamically based on the detected hardware at runtime.
+We have optimizations specific to AVX2 and AVX-512 in the code, and they are turned dynamically based on the detected hardware at runtime.
 
 
 ## Usage (Using `conan`)
@@ -560,9 +688,11 @@ These commands will also print out instructions on how to use the library from M
 
 If you find the version of `roaring` shipped with `vcpkg` is out-of-date, feel free to report it to `vcpkg` community either by submiting an issue or by creating a PR.
 
-# AVX2-related throttling
+# SIMD-related throttling
 
-Our AVX2 code does not use floating-point numbers or multiplications, so it is not subject to turbo frequency throttling on many-core Intel processors.
+Our AVX2 code does not use floating-point numbers or multiplications, so it is not subject to turbo frequency throttling on many-core Intel processors. 
+
+Our AVX-512 code is only enabled on recent hardware (Intel Ice Lake or better and AMD Zen 4) where SIMD-specific frequency throttling is not observed.
 
 # Thread safety
 
@@ -599,8 +729,9 @@ later `roaring_bitmap_or_inplace` will be very fast.
 
 You should benchmark these alternatives on your own data to decide what is best.
 
-# Python Wrapper
+# Wrappers
 
+## Python
 Tom Cornebize wrote a Python wrapper available at https://github.com/Ezibenroc/PyRoaringBitMap
 Installing it is as easy as typing...
 
@@ -608,7 +739,7 @@ Installing it is as easy as typing...
 pip install pyroaring
 ```
 
-# JavaScript Wrapper
+## JavaScript
 
 Salvatore Previti  wrote a Node/JavaScript wrapper available at https://github.com/SalvatorePreviti/roaring-node
 Installing it is as easy as typing...
@@ -617,32 +748,35 @@ Installing it is as easy as typing...
 npm install roaring
 ```
 
-# Swift Wrapper
+## Swift
 
 Jérémie Piotte wrote a [Swift wrapper](https://github.com/RoaringBitmap/SwiftRoaring).
 
 
-# C# Wrapper
+## C#
 
 Brandon Smith wrote a C# wrapper available at https://github.com/RogueException/CRoaring.Net (works for Windows and Linux under x64 processors)
 
 
-# Go (golang) Wrapper
+## Go (golang)
 
 There is a Go (golang) wrapper available at https://github.com/RoaringBitmap/gocroaring
 
-# Rust Wrapper
+## Rust
 
 Saulius Grigaliunas wrote a Rust wrapper available at https://github.com/saulius/croaring-rs
 
-# D Wrapper
+## D
 
 Yuce Tekol wrote a D wrapper available at https://github.com/yuce/droaring
 
-# Redis Module
+## Redis
 
 Antonio Guilherme Ferreira Viggiano wrote a Redis Module available at https://github.com/aviggiano/redis-roaring
 
+## Zig
+
+Justin Whear wrote a Zig wrapper available at https://github.com/jwhear/roaring-zig
 
 
 # Mailing list/discussion group
@@ -651,10 +785,9 @@ https://groups.google.com/forum/#!forum/roaring-bitmaps
 
 # References about Roaring
 
-- Daniel Lemire, Owen Kaser, Nathan Kurz, Luca Deri, Chris O'Hara, François Saint-Jacques, Gregory Ssi-Yan-Kai, Roaring Bitmaps: Implementation of an Optimized Software Library, Software: Practice and Experience (to appear) [arXiv:1709.07821](https://arxiv.org/abs/1709.07821)
+- Daniel Lemire, Owen Kaser, Nathan Kurz, Luca Deri, Chris O'Hara, François Saint-Jacques, Gregory Ssi-Yan-Kai, Roaring Bitmaps: Implementation of an Optimized Software Library, Software: Practice and Experience Volume 48, Issue 4 April 2018 Pages 867-895 [arXiv:1709.07821](https://arxiv.org/abs/1709.07821)
 -  Samy Chambi, Daniel Lemire, Owen Kaser, Robert Godin,
 Better bitmap performance with Roaring bitmaps,
-Software: Practice and Experience Volume 46, Issue 5, pages 709–719, May 2016
-http://arxiv.org/abs/1402.6407 This paper used data from http://lemire.me/data/realroaring2014.html
-- Daniel Lemire, Gregory Ssi-Yan-Kai, Owen Kaser, Consistently faster and smaller compressed bitmaps with Roaring, Software: Practice and Experience (accepted in 2016, to appear) http://arxiv.org/abs/1603.06549
+Software: Practice and Experience Volume 46, Issue 5, pages 709–719, May 2016  [arXiv:1402.6407](http://arxiv.org/abs/1402.6407)
+- Daniel Lemire, Gregory Ssi-Yan-Kai, Owen Kaser, Consistently faster and smaller compressed bitmaps with Roaring, Software: Practice and Experience Volume 46, Issue 11, pages 1547-1569, November 2016 [arXiv:1603.06549](http://arxiv.org/abs/1603.06549)
 - Samy Chambi, Daniel Lemire, Robert Godin, Kamel Boukhalfa, Charles Allen, Fangjin Yang, Optimizing Druid with Roaring bitmaps, IDEAS 2016, 2016. http://r-libre.teluq.ca/950/
