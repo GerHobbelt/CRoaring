@@ -17,6 +17,7 @@ class CRoaringConan(ConanFile):
 
         # headers
         self.copy("*.h", src=base + "cpp", dst=relative + "cpp")
+        self.copy("*.h", src=base + "include", dst=relative + "include")
 
         # libraries
         output = "output/" + str(self.settings.platform_architecture_target) + "/staticlib"
