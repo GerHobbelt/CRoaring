@@ -16,7 +16,7 @@ class CRoaringConan(ConanFile):
         relative = "3rdparty/CRoaring/"
 
         # headers
-        self.copy("*.h", src=base + "cpp", dst=relative + "cpp")
+        self.copy("*.h*", src=base + "cpp", dst=relative + "cpp")
         self.copy("*.h", src=base + "include", dst=relative + "include")
 
         # libraries
