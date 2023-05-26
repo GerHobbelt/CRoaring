@@ -16,6 +16,10 @@ files {
   "src/containers/*.c",
 }
 
+excludes {
+  "src/containers/bitset.c",
+}
+
 if (_PLATFORM_ANDROID) then
 end
 
