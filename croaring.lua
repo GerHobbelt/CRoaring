@@ -16,6 +16,7 @@ files {
   "src/containers/*.c",
 }
 
+-- Exclude src/containers/bitset.c as there is another bitset.c in src/ which causes linker issues
 excludes {
   "src/containers/bitset.c",
 }
