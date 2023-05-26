@@ -13,6 +13,7 @@ includedirs {
 
 files {
   "src/*.c",
+  "src/containers/*.c",
 }
 
 if (_PLATFORM_ANDROID) then
