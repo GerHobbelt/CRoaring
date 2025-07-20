@@ -8,9 +8,9 @@
 #include "random.h"
 
 static roaring_bitmap_t *make_random_bitmap(uint32_t range[3]) {
-    uint32_t start = ranged_random((1UL << 32) - 2);
-    uint32_t stop = ranged_random((1UL << 32) - 1);
-    uint32_t step = ranged_random((1UL << 16) - 1);
+    uint32_t start = ranged_random((1ULL << 32) - 2);
+    uint32_t stop = ranged_random((1ULL << 32) - 1);
+    uint32_t step = ranged_random((1ULL << 16) - 1);
 
     if (start > stop) {
         start ^= stop;
@@ -29,8 +29,8 @@ static roaring_bitmap_t *make_random_bitmap(uint32_t range[3]) {
 }
 
 static void make_random_range(uint32_t range[2]) {
-    uint32_t start = ranged_random((1UL << 32) - 2);
-    uint32_t stop = ranged_random((1UL << 32) - 1);
+    uint32_t start = ranged_random((1ULL << 32) - 2);
+    uint32_t stop = ranged_random((1ULL << 32) - 1);
 
     if (start > stop) {
         start ^= stop;
@@ -103,9 +103,9 @@ static void run_test(void) {
 
     testvalue_t pathologic[1] = {
         {
-            .bitmap = roaring_bitmap_from_range(0, (1UL << 32) - 2, 2),
-            .bitmap_range = {0, (1UL << 32) - 2, 2},
-            .range = {(1UL << 32) - 3, (1UL << 32) - 1},
+            .bitmap = roaring_bitmap_from_range(0, (1ULL << 32) - 2, 2),
+            .bitmap_range = {0, (1ULL << 32) - 2, 2},
+            .range = {(1ULL << 32) - 3, (1ULL << 32) - 1},
         },
     };
     pathologic[0].expected = naive_intersect(NULL, pathologic[0]);
