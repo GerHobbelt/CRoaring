@@ -2,6 +2,9 @@
 #include <math.h>
 #include <stdio.h>
 
+#define ALLOCA(count, type)                                      \
+    (type *)alloca(count * sizeof(type))
+
 #include <roaring/roaring.h>
 
 #include "benchmark.h"
@@ -77,7 +80,7 @@ void run_test(uint32_t spanlen, uint32_t intvlen, double density,
     make_data(spanlen, intvlen, density, order, &offsets, &count);
     const int num_passes = 5;
     uint64_t cycles_start, cycles_final;
-    double results[num_passes];
+    double *results = ALLOCA(num_passes, double);
 
     printf("  roaring_bitmap_add():");
     for (int p = 0; p < num_passes; p++) {
@@ -97,7 +100,7 @@ void run_test(uint32_t spanlen, uint32_t intvlen, double density,
     printf("  roaring_bitmap_add_many():");
     for (int p = 0; p < num_passes; p++) {
         roaring_bitmap_t *r = roaring_bitmap_create();
-        uint32_t values[intvlen * count];
+        uint32_t *values = ALLOCA(intvlen * count, uint32_t);
         for (int64_t i = 0; i < count; i++) {
             for (uint32_t j = 0; j < intvlen; j++) {
                 values[i * intvlen + j] = offsets[i] + j;
