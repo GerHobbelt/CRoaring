@@ -45,14 +45,14 @@ static inline void cpuinfo(int code, int *eax, int *ebx, int *ecx, int *edx) {
 #endif /* not sure what to do when inline assembly is unavailable*/
 }
 
-static inline int computecacheline() {
+static inline int computecacheline(void) {
     int eax = 0, ebx = 0, ecx = 0, edx = 0;
     cpuinfo((int)0x80000006, &eax, &ebx, &ecx, &edx);
     return ecx & 0xFF;
 }
 
 // this is quite imperfect, but can be handy
-static inline const char *guessprocessor() {
+static inline const char *guessprocessor(void) {
     unsigned eax = 1, ebx = 0, ecx = 0, edx = 0;
     native_cpuid(&eax, &ebx, &ecx, &edx);
     const char *codename;
@@ -167,7 +167,7 @@ static inline const char *guessprocessor() {
     return codename;
 }
 
-static inline void tellmeall() {
+static inline void tellmeall(void) {
 #if CROARING_IS_BIG_ENDIAN
     printf("big-endian system detected\n"));
 #endif

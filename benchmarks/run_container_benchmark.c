@@ -74,7 +74,7 @@ static inline int intersection_test(run_container_t* B1, run_container_t* B2,
     return run_container_cardinality(BO);
 }
 
-int main() {
+int main(void) {
     int repeat = 500;
     int size = TESTSIZE;
     tellmeall();

@@ -72,7 +72,7 @@ int intersection_test(array_container_t* B1, array_container_t* B2,
     array_container_intersection(B1, B2, BO);
     return BO->cardinality;
 }
-int main() {
+int main(void) {
     int repeat = 500;
     int size = TESTSIZE;
     tellmeall();

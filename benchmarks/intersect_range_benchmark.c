@@ -82,7 +82,7 @@ static bool range_intersect(void *base, testvalue_t tv) {
 }
 
 #define NUM_SAMPLES 100
-static void run_test() {
+static void run_test(void) {
     static testvalue_t testvalues[NUM_SAMPLES];
 
     for (int i = 0; i < NUM_SAMPLES; i++) {

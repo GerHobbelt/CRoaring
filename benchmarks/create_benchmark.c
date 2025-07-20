@@ -6,7 +6,7 @@
 #include "benchmark.h"
 
 // see https://github.com/saulius/croaring-rs/issues/6#issuecomment-243341270
-int main() {
+int main(void) {
     size_t N = 1000000;
     uint64_t cycles_start, cycles_final;
 

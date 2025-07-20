@@ -82,7 +82,7 @@ int get_test(bitset_container_t* B) {
     return card;
 }
 
-void benchmark_logical_operations() {
+void benchmark_logical_operations(void) {
     printf("\nLogical operations (time units per single operation):\n");
     bitset_container_t* B1 = bitset_container_create();
     for (int x = 0; x < 1 << 16; x += 3) {
@@ -119,7 +119,7 @@ void benchmark_logical_operations() {
     printf("\n");
 }
 
-int main() {
+int main(void) {
     int size = (1 << 16) / 3;
     tellmeall();
     printf("bitset container benchmarks\n");

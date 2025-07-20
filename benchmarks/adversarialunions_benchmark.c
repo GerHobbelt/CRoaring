@@ -4,7 +4,7 @@
 #include <roaring/roaring.h>
 
 #include "benchmark.h"
-static inline int quickfull() {
+static inline int quickfull(void) {
     printf(
         "The naive approach works well when the bitmaps quickly become full\n");
     uint64_t cycles_start, cycles_final;
@@ -52,7 +52,7 @@ static inline int quickfull() {
     return 0;
 }
 
-static inline int notsofull() {
+static inline int notsofull(void) {
     printf(
         "The naive approach works less well when the bitmaps do not quickly "
         "become full\n");
@@ -101,7 +101,7 @@ static inline int notsofull() {
     return 0;
 }
 
-int main() {
+int main(void) {
     printf("How to best aggregate the bitmaps is data-sensitive.\n");
     quickfull();
     notsofull();
