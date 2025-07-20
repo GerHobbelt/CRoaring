@@ -4,10 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#if !defined(_WIN32)
 #include <sys/mman.h>
+#include <unistd.h>
+#else
+#include <io.h>
+#endif
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <unistd.h>
 
 #include "benchmark.h"
 #include "numbersfromtextfiles.h"

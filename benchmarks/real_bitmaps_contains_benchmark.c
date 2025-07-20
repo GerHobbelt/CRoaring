@@ -1,5 +1,6 @@
 #define _GNU_SOURCE
 #include <roaring/roaring.h>
+#include <getopt.h>
 
 #include "benchmark.h"
 #include "numbersfromtextfiles.h"
