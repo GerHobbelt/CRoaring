@@ -94,7 +94,7 @@ DEFINE_TEST(test_deserialize_portable_wrun) {
 }
 #endif
 
-int main() {
+int main(void) {
     tellmeall();
 #if CROARING_IS_BIG_ENDIAN
     printf("Big-endian IO unsupported.\n");

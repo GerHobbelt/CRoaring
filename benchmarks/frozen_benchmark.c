@@ -9,6 +9,7 @@
 #include <unistd.h>
 #else
 #include <io.h>
+typedef signed long long int ssize_t;
 #endif
 #include <sys/stat.h>
 #include <sys/types.h>

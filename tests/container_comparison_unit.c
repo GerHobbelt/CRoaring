@@ -214,7 +214,7 @@ DEFINE_TEST(subset_run_bitset_test) {
     generic_subset_test(RUN_CONTAINER_TYPE, BITSET_CONTAINER_TYPE);
 }
 
-int main() {
+int main(void) {
     tellmeall();
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(equal_array_array_test),

@@ -314,7 +314,7 @@ DEFINE_TEST(select_test) {
     bitset_container_free(B);
 }
 
-int main() {
+int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(hamming_test),
         cmocka_unit_test(test_bitset_lenrange_cardinality),

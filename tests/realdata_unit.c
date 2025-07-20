@@ -865,7 +865,7 @@ bool loadAndCheckAll(const char *dirname, bool copy_on_write) {
     return true;
 }
 
-int main() {
+int main(void) {
     tellmeall();
 
     char dirbuffer[1024];

@@ -386,7 +386,7 @@ DEFINE_TEST(deserialize_bitset_incorrect_cardinality) {
                              "Incorrect bitset cardinality");
 }
 
-int main() {
+int main(void) {
     tellmeall();
 #if CROARING_IS_BIG_ENDIAN
     printf("Big-endian IO unsupported.\n");

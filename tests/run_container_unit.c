@@ -216,7 +216,7 @@ DEFINE_TEST(remove_range_test) {
     run_container_free(run);
 }
 
-int main() {
+int main(void) {
     tellmeall();
 
     const struct CMUnitTest tests[] = {

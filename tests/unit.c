@@ -10,6 +10,7 @@
 
 #include <roaring/misc/configreport.h>
 #include <roaring/roaring.h>
+#include <roaring/array_util.h>
 
 #include "config.h"
 
@@ -245,7 +246,7 @@ int realdatacheck(char *dirname) {
     return 0;
 }
 
-int main() {
+int main(void) {
     tellmeall();
     int r = 0;
     r = realdatacheck(BENCHMARK_DATA_DIR "census1881");

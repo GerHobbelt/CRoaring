@@ -287,7 +287,7 @@ static void roaring_add_offset_test(void **state_) {
             &state                                                           \
     }
 
-int main() {
+int main(void) {
     tellmeall();
 
     static uint16_t range_100_1000[900];

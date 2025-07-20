@@ -12,7 +12,7 @@ bool roaring_iterator_sumall(uint32_t value, void *param) {
     return true;  // iterate till the end
 }
 
-int main() {
+int main(void) {
     tellmeall();
     // create a new empty bitmap
     roaring_bitmap_t *r1 = roaring_bitmap_create();

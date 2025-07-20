@@ -20,7 +20,7 @@ using namespace roaring::internal;
 static unsigned int seed = 123456789;
 static const int OUR_RAND_MAX = (1 << 30) - 1;
 inline static unsigned int
-our_rand() {  // we do not want to depend on a system-specific
+our_rand(void) {  // we do not want to depend on a system-specific
               // random number generator
     seed = (1103515245 * seed + 12345);
     return seed & OUR_RAND_MAX;
@@ -4825,7 +4825,7 @@ DEFINE_TEST(issue_15jan2024) {
     roaring_bitmap_free(r2);
 }
 
-int main() {
+int main(void) {
     tellmeall();
 
     const struct CMUnitTest tests[] = {

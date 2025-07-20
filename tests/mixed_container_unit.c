@@ -1982,7 +1982,7 @@ DEFINE_TEST(run_negation_range_test9) {
                              false, false);
 }
 
-int main() {
+int main(void) {
     tellmeall();
 
     const struct CMUnitTest tests[] = {

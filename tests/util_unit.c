@@ -74,7 +74,7 @@ DEFINE_TEST(setandextract_uint32) {
     }
 }
 
-int main() {
+int main(void) {
     tellmeall();
 
     const struct CMUnitTest tests[] = {

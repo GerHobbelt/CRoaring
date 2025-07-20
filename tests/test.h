@@ -58,5 +58,5 @@ extern "C" {
 #ifdef __cplusplus
 #define DEFINE_TEST(name) static void name(void **)
 #else
-#define DEFINE_TEST(name) static void name()
+#define DEFINE_TEST(name) static void name(void **state)
 #endif

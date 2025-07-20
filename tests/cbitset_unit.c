@@ -289,7 +289,7 @@ DEFINE_TEST(test_contains_all) {
     bitset_free(subset);
 }
 
-int main() {
+int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(test_set_to_val),
         cmocka_unit_test(test_construct),

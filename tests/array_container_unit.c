@@ -217,7 +217,9 @@ static inline uint64_t splitmix64_r(uint64_t* seed) {
     return z ^ (z >> 31);
 }
 
-static inline uint64_t splitmix64() { return splitmix64_r(&splitmix64_x); }
+static inline uint64_t splitmix64(void) {
+	return splitmix64_r(&splitmix64_x);
+}
 
 size_t populate(uint16_t* buffer, size_t maxsize) {
     size_t length = splitmix64() % maxsize;
@@ -364,7 +366,7 @@ DEFINE_TEST(mini_fuzz_recycle_array_container_intersection_inplace) {
     free(buffer3);
 }
 
-int main() {
+int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(mini_fuzz_array_container_intersection_inplace),
         cmocka_unit_test(
