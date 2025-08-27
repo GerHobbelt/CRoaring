@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['c_0',['c',['../index.html#autotoc_md47',1,'C'],['../index.html#autotoc_md32',1,'Compressed 64-bit Roaring bitmaps (C)'],['../index.html#autotoc_md33',1,'Conventional bitsets (C)'],['../index.html#autotoc_md31',1,'Example (C)'],['../index.html#autotoc_md34',1,'Example (C++)']]],
-  ['c_20api_20functions_1',['C++ API functions',['../index.html#autotoc_md20',1,'']]],
-  ['cardinality_2',['cardinality',['../d4/dcf/classroaring_1_1Roaring64Map.html#a1c768a3502c441531f76ae24ec28ab11',1,'roaring::Roaring64Map::cardinality()'],['../d1/d51/classroaring_1_1Roaring.html#a5421644f170815768cad891ac1fd053b',1,'roaring::Roaring::cardinality()'],['../index.html#autotoc_md14',1,'Queries and Cardinality']]],
-  ['classes_3',['Main Classes',['../index.html#autotoc_md21',1,'']]],
+  ['c_0',['c',['../index.html#autotoc_md50',1,'C'],['../index.html#autotoc_md35',1,'Compressed 64-bit Roaring bitmaps (C)'],['../index.html#autotoc_md36',1,'Conventional bitsets (C)'],['../index.html#autotoc_md34',1,'Example (C)'],['../index.html#autotoc_md37',1,'Example (C++)']]],
+  ['c_20api_20functions_1',['C++ API functions',['../index.html#autotoc_md22',1,'']]],
+  ['cardinality_2',['cardinality',['../d4/dcf/classroaring_1_1Roaring64Map.html#a1c768a3502c441531f76ae24ec28ab11',1,'roaring::Roaring64Map::cardinality()'],['../d1/d51/classroaring_1_1Roaring.html#a5421644f170815768cad891ac1fd053b',1,'roaring::Roaring::cardinality()'],['../index.html#autotoc_md15',1,'Queries and Cardinality']]],
+  ['classes_3',['Main Classes',['../index.html#autotoc_md23',1,'']]],
   ['clear_4',['clear',['../d1/d51/classroaring_1_1Roaring.html#a4450fd8f2d80639246ec62dfb65f548b',1,'roaring::Roaring::clear()'],['../d4/dcf/classroaring_1_1Roaring64Map.html#a75cb282058feaf656985a69cdd855cc5',1,'roaring::Roaring64Map::clear()']]],
   ['cmake_20dependency_20with_20fetchcontent_5',['Using as a CMake dependency with FetchContent',['../index.html#autotoc_md8',1,'']]],
-  ['cmake_20linux_20and_20macos_20visual_20studio_20or_20openharmony_20users_20should_20see_20below_6',['Building with cmake (Linux and macOS, Visual Studio or OpenHarmony users should see below)',['../index.html#autotoc_md35',1,'']]],
-  ['common_20methods_2032_20bit_20and_2064_20bit_7',['Common Methods (32-bit and 64-bit)',['../index.html#autotoc_md22',1,'']]],
-  ['compressed_2064_20bit_20roaring_20bitmaps_20c_8',['Compressed 64-bit Roaring bitmaps (C)',['../index.html#autotoc_md32',1,'']]],
-  ['conan_20tt_9',['Usage (Using &lt;tt&gt;conan&lt;/tt&gt;)',['../index.html#autotoc_md37',1,'']]],
+  ['cmake_20linux_20and_20macos_20visual_20studio_20or_20openharmony_20users_20should_20see_20below_6',['Building with cmake (Linux and macOS, Visual Studio or OpenHarmony users should see below)',['../index.html#autotoc_md38',1,'']]],
+  ['common_20methods_2032_20bit_20and_2064_20bit_7',['Common Methods (32-bit and 64-bit)',['../index.html#autotoc_md24',1,'']]],
+  ['compressed_2064_20bit_20roaring_20bitmaps_20c_8',['Compressed 64-bit Roaring bitmaps (C)',['../index.html#autotoc_md35',1,'']]],
+  ['conan_20tt_9',['Usage (Using &lt;tt&gt;conan&lt;/tt&gt;)',['../index.html#autotoc_md40',1,'']]],
   ['const_5fbidirectional_5fiterator_10',['const_bidirectional_iterator',['../d1/d51/classroaring_1_1Roaring.html#adeb03e75a5b15caec9c486db8ac47084',1,'roaring::Roaring::const_bidirectional_iterator'],['../d4/dcf/classroaring_1_1Roaring64Map.html#abe657fbb5cc92b5c2ad16160b96adb39',1,'roaring::Roaring64Map::const_bidirectional_iterator']]],
   ['const_5fiterator_11',['const_iterator',['../d4/dcf/classroaring_1_1Roaring64Map.html#a44aeaae51642c6bfed539a84d0a46bb3',1,'roaring::Roaring64Map::const_iterator'],['../d1/d51/classroaring_1_1Roaring.html#a7d195ca2e429e36e5730806ab6f139b4',1,'roaring::Roaring::const_iterator']]],
   ['container_12',['container',['../db/d0d/structroaring__bulk__context__s.html#a9959594ea0333621537eb14c8089b06c',1,'roaring_bulk_context_s::container'],['../da/d27/structroaring__uint32__iterator__s.html#a43c864a1f20b9d55ad38f8b404446650',1,'roaring_uint32_iterator_s::container']]],
@@ -20,11 +20,11 @@ var searchData=
   ['containsrange_17',['containsRange',['../d1/d51/classroaring_1_1Roaring.html#a57363257f4583165b9ba2bfc20424eef',1,'roaring::Roaring']]],
   ['containsrangeclosed_18',['containsRangeClosed',['../d1/d51/classroaring_1_1Roaring.html#a5dc728e8fc1c4bac103d48981958821e',1,'roaring::Roaring']]],
   ['contents_19',['Table of Contents',['../index.html#autotoc_md1',1,'']]],
-  ['contributing_20',['Contributing',['../index.html#autotoc_md54',1,'']]],
-  ['conventional_20bitsets_20c_21',['Conventional bitsets (C)',['../index.html#autotoc_md33',1,'']]],
+  ['contributing_20',['Contributing',['../index.html#autotoc_md57',1,'']]],
+  ['conventional_20bitsets_20c_21',['Conventional bitsets (C)',['../index.html#autotoc_md36',1,'']]],
   ['cpm_20dependency_22',['Using Roaring as a CPM dependency',['../index.html#autotoc_md7',1,'']]],
   ['creation_20and_20destruction_23',['Creation and Destruction',['../index.html#autotoc_md12',1,'']]],
   ['croaring_24',['CRoaring',['../index.html',1,'']]],
   ['current_5fvalue_25',['current_value',['../da/d27/structroaring__uint32__iterator__s.html#ab6729438a346958f8075ef0c72a9ba47',1,'roaring_uint32_iterator_s']]],
-  ['custom_20memory_20allocators_26',['Custom memory allocators',['../index.html#autotoc_md30',1,'']]]
+  ['custom_20memory_20allocators_26',['Custom memory allocators',['../index.html#autotoc_md33',1,'']]]
 ];
