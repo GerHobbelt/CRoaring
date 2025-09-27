@@ -48,7 +48,7 @@ extern "C" {
 //
 // There's a problem if you're trying to write code that will compile in
 // either C or C++, because it's not legal in C99 to not name a parameter...
-// and if you give it a name, then there will be complaints that the paramter
+// and if you give it a name, then there will be complaints that the parameter
 // is not used.
 //
 // Disabling bad cast warnings in C++ defeats the point of compiling in C++,
