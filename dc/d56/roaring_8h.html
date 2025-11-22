@@ -28,7 +28,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CRoaring<span id="projectnumber">&#160;4.3.5</span>
+   <div id="projectname">CRoaring<span id="projectnumber">&#160;4.3.12</span>
    </div>
    <div id="projectbrief">Roaring bitmaps in C (and C++)</div>
   </td>
@@ -150,6 +150,10 @@ Functions</h2></td></tr>
 <tr class="separator:a7426a2e73d83db8ae66f8a7cb4bc1df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6611d4a7cb36e597353ce944104e3f6" id="r_af6611d4a7cb36e597353ce944104e3f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d56/roaring_8h.html#a946b719adc4b8027b3d4aeeb63c64fbc">roaring_bitmap_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d56/roaring_8h.html#af6611d4a7cb36e597353ce944104e3f6">roaring_bitmap_of_ptr</a> (size_t n_args, const uint32_t *vals)</td></tr>
 <tr class="separator:af6611d4a7cb36e597353ce944104e3f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2f81f9c14d0582f861fe77bea913552" id="r_ab2f81f9c14d0582f861fe77bea913552"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d56/roaring_8h.html#ab2f81f9c14d0582f861fe77bea913552">roaring_contains_shared</a> (const <a class="el" href="../../dc/d56/roaring_8h.html#a946b719adc4b8027b3d4aeeb63c64fbc">roaring_bitmap_t</a> *r)</td></tr>
+<tr class="separator:ab2f81f9c14d0582f861fe77bea913552"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a273c78a958942b3ebaa38110823fb5b2" id="r_a273c78a958942b3ebaa38110823fb5b2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d56/roaring_8h.html#a273c78a958942b3ebaa38110823fb5b2">roaring_unshare_all</a> (<a class="el" href="../../dc/d56/roaring_8h.html#a946b719adc4b8027b3d4aeeb63c64fbc">roaring_bitmap_t</a> *r)</td></tr>
+<tr class="separator:a273c78a958942b3ebaa38110823fb5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a491b63c05555f770b04b1dc81d6523c1" id="r_a491b63c05555f770b04b1dc81d6523c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d56/roaring_8h.html#a491b63c05555f770b04b1dc81d6523c1">roaring_bitmap_get_copy_on_write</a> (const <a class="el" href="../../dc/d56/roaring_8h.html#a946b719adc4b8027b3d4aeeb63c64fbc">roaring_bitmap_t</a> *r)</td></tr>
 <tr class="separator:a491b63c05555f770b04b1dc81d6523c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84bd77c991d7520ab336433b3dff4cf5" id="r_a84bd77c991d7520ab336433b3dff4cf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d56/roaring_8h.html#a84bd77c991d7520ab336433b3dff4cf5">roaring_bitmap_set_copy_on_write</a> (<a class="el" href="../../dc/d56/roaring_8h.html#a946b719adc4b8027b3d4aeeb63c64fbc">roaring_bitmap_t</a> *r, bool cow)</td></tr>
@@ -386,7 +390,7 @@ Functions</h2></td></tr>
 </div><!-- fragment --><p>Creates a new bitmap which contains all values passed in as arguments.</p>
 <p>To create a bitmap from a variable number of arguments, use the <code>roaring_bitmap_of_ptr</code> function instead. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00151">151</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00169">169</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 </div>
 </div>
@@ -466,7 +470,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>DEPRECATED, use <code>roaring_uint32_iterator_advance</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01126">1126</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01144">1144</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#aec401e111190871fb95faaa0e4d66757">roaring_uint32_iterator_advance()</a>.</p>
 
@@ -675,7 +679,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Add all values in range [min, max) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00410">410</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00428">428</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#a0f06fc10964f5683ad634af54a2dad98">roaring_bitmap_add_range_closed()</a>.</p>
 
@@ -1367,8 +1371,6 @@ Functions</h2></td></tr>
  responsible for freeing the result.""</p>
 <p>roaring_bitmap_t *roaring_bitmap_xor_many_heap(uint32_t number, const roaring_bitmap_t **rs); Frees the memory. </p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d51/classroaring_1_1Roaring.html#ac6494f64fdae0b83086a2852231a3ecd">roaring::Roaring::~Roaring()</a>.</p>
-
 </div>
 </div>
 <a id="a7426a2e73d83db8ae66f8a7cb4bc1df1" name="a7426a2e73d83db8ae66f8a7cb4bc1df1"></a>
@@ -1435,8 +1437,6 @@ Functions</h2></td></tr>
 <p>This function is endian-sensitive. If you have a big-endian system (e.g., a mainframe IBM s390x), the data format is going to be big-endian and not compatible with little-endian systems.</p>
 <p>When serializing data to a file, we recommend that you also use checksums so that, at deserialization, you can be confident that you are recovering the correct data. </p>
 
-<p class="reference">Referenced by <a class="el" href="../../d1/d51/classroaring_1_1Roaring.html#a9a8e3442abe87e7049ad23ab4f4a45ad">roaring::Roaring::writeFrozen()</a>.</p>
-
 </div>
 </div>
 <a id="a45ee2d20cf5c40d9898c88a8320f136b" name="a45ee2d20cf5c40d9898c88a8320f136b"></a>
@@ -1455,8 +1455,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns number of bytes required to serialize bitmap using frozen format. </p>
-
-<p class="reference">Referenced by <a class="el" href="../../d1/d51/classroaring_1_1Roaring.html#a0b3ab3f5da48d69f43a85b21c8f6196b">roaring::Roaring::getFrozenSizeInBytes()</a>.</p>
 
 </div>
 </div>
@@ -1534,9 +1532,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00086">86</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00101">101</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dd/d7a/structroaring__bitmap__s.html#acf42856216e3a50da302ef1c34269d19">roaring_bitmap_s::high_low_container</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../dc/d56/roaring_8h.html#a84bd77c991d7520ab336433b3dff4cf5">roaring_bitmap_set_copy_on_write()</a>.</p>
 
 </div>
 </div>
@@ -2184,8 +2184,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Compute the union of 'number' bitmaps. Caller is responsible for freeing the result. See also <code><a class="el" href="../../dc/d56/roaring_8h.html#a44fa6bb2413242b37966a40856db20c2">roaring_bitmap_or_many_heap()</a></code> The returned pointer may be NULL in case of errors. </p>
 
-<p class="reference">Referenced by <a class="el" href="../../d4/dcf/classroaring_1_1Roaring64Map.html#a85b1c96beaa6c0358983a9b56fc4cc17">roaring::Roaring64Map::fastunion()</a>.</p>
-
 </div>
 </div>
 <a id="a44fa6bb2413242b37966a40856db20c2" name="a44fa6bb2413242b37966a40856db20c2"></a>
@@ -2771,7 +2769,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Remove all values in range [min, max) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00432">432</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00450">450</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#a89e082a93608a752f763e8aee5df8082">roaring_bitmap_remove_range_closed()</a>.</p>
 
@@ -2975,9 +2973,9 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00089">89</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l00104">104</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
-<p class="reference">References <a class="el" href="../../dd/d7a/structroaring__bitmap__s.html#acf42856216e3a50da302ef1c34269d19">roaring_bitmap_s::high_low_container</a>.</p>
+<p class="reference">References <a class="el" href="../../dd/d7a/structroaring__bitmap__s.html#acf42856216e3a50da302ef1c34269d19">roaring_bitmap_s::high_low_container</a>, <a class="el" href="../../dc/d56/roaring_8h.html#a491b63c05555f770b04b1dc81d6523c1">roaring_bitmap_get_copy_on_write()</a>, and <a class="el" href="../../dc/d56/roaring_8h.html#a273c78a958942b3ebaa38110823fb5b2">roaring_unshare_all()</a>.</p>
 
 </div>
 </div>
@@ -3225,6 +3223,25 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab2f81f9c14d0582f861fe77bea913552" name="ab2f81f9c14d0582f861fe77bea913552"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2f81f9c14d0582f861fe77bea913552">&#9670;&#160;</a></span>roaring_contains_shared()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool roaring_contains_shared </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../dc/d56/roaring_8h.html#a946b719adc4b8027b3d4aeeb63c64fbc">roaring_bitmap_t</a> *&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Check if the bitmap contains any shared containers. </p>
+
+</div>
+</div>
 <a id="a9eec22321550dda4bef9fb8617add445" name="a9eec22321550dda4bef9fb8617add445"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9eec22321550dda4bef9fb8617add445">&#9670;&#160;</a></span>roaring_copy_uint32_iterator()</h2>
 
@@ -3250,7 +3267,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>DEPRECATED, use <code>roaring_uint32_iterator_copy</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01172">1172</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01190">1190</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#a4b5f51c2a3c015ca56bdeb477d0e84c6">roaring_uint32_iterator_copy()</a>.</p>
 
@@ -3281,7 +3298,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>DEPRECATED, use <code>roaring_iterator_create</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01110">1110</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01128">1128</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#a6411fc557537acffd5d584b29f76e5ab">roaring_iterator_create()</a>.</p>
 
@@ -3312,7 +3329,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>DEPRECATED, use <code>roaring_uint32_iterator_free</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01182">1182</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01200">1200</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#aa879e686552e794ad36d33a9eedece3c">roaring_uint32_iterator_free()</a>.</p>
 
@@ -3353,7 +3370,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>DEPRECATED, use <code>roaring_iterator_init</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01079">1079</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01097">1097</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#a45b84c4acc0a65ebf4fa529ee35b3c70">roaring_iterator_init()</a>.</p>
 
@@ -3394,7 +3411,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>DEPRECATED, use <code>roaring_iterator_init_last</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01093">1093</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01111">1111</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#a1c2a6c8c7381614389c12406aea38f34">roaring_iterator_init_last()</a>.</p>
 
@@ -3476,8 +3493,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="../../d4/dcf/classroaring_1_1Roaring64Map.html#ae5d56a187810e7fd1cef36f80c2a67f1">roaring::Roaring64Map::iterate()</a>.</p>
-
 </div>
 </div>
 <a id="a6411fc557537acffd5d584b29f76e5ab" name="a6411fc557537acffd5d584b29f76e5ab"></a>
@@ -3529,7 +3544,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Initialize an iterator object that can be used to iterate through the values. If there is a value, then this iterator points to the first value and <code>it-&gt;has_value</code> is true. The value is in <code>it-&gt;current_value</code>. </p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#ac5e926eae57201b1132da84d91bc24bc">roaring::Roaring64MapSetBitBiDirectionalIterator::move_equalorlarger()</a>, <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#a002db154cde9d6f1f0fc9739d4932721">roaring::Roaring64MapSetBitBiDirectionalIterator::operator++()</a>, <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#a0416282aa655d3c59d2d7acd5ffa30a6">roaring::Roaring64MapSetBitBiDirectionalIterator::operator++()</a>, <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#a3d7ecf7e2bd5c9e8aaefe5305a9dfcfe">roaring::Roaring64MapSetBitBiDirectionalIterator::Roaring64MapSetBitBiDirectionalIterator()</a>, and <a class="el" href="../../dc/d56/roaring_8h.html#a2dbaf71dd639ad7ba246795f59360013">roaring_init_iterator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d56/roaring_8h.html#a2dbaf71dd639ad7ba246795f59360013">roaring_init_iterator()</a>.</p>
 
 </div>
 </div>
@@ -3560,7 +3575,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Initialize an iterator object that can be used to iterate through the values. If there is a value, then this iterator points to the last value and <code>it-&gt;has_value</code> is true. The value is in <code>it-&gt;current_value</code>. </p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#ac91216d02ea79af52eda0d378fbcba58">roaring::Roaring64MapSetBitBiDirectionalIterator::operator--()</a>, <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#a9ddc21b129bd005d78eb260d6dc6f713">roaring::Roaring64MapSetBitBiDirectionalIterator::operator--()</a>, and <a class="el" href="../../dc/d56/roaring_8h.html#a408694be1d63e75c5ab4c2c776bf906e">roaring_init_iterator_last()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d56/roaring_8h.html#a408694be1d63e75c5ab4c2c776bf906e">roaring_init_iterator_last()</a>.</p>
 
 </div>
 </div>
@@ -3599,7 +3614,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>DEPRECATED, use <code>roaring_uint32_iterator_move_equalorlarger</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01158">1158</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01176">1176</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#a523be4d9d334d99a54385cf1b8492602">roaring_uint32_iterator_move_equalorlarger()</a>.</p>
 
@@ -3630,7 +3645,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>DEPRECATED, use <code>roaring_uint32_iterator_previous</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01143">1143</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01161">1161</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#a5843d31058d4671164e719c1676a5a2a">roaring_uint32_iterator_previous()</a>.</p>
 
@@ -3677,7 +3692,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>DEPRECATED, use <code>roaring_uint32_iterator_read</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01202">1202</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/roaring_8h_source.html#l01220">1220</a> of file <a class="el" href="../../dc/d56/roaring_8h_source.html">roaring.h</a>.</p>
 
 <p class="reference">References <a class="el" href="../../dc/d56/roaring_8h.html#aa7d6e6919e46905bf7e5ddd824f3eb55">roaring_uint32_iterator_read()</a>.</p>
 
@@ -3701,7 +3716,7 @@ Functions</h2></td></tr>
 <p>Advance the iterator. If there is a new value, then <code>it-&gt;has_value</code> is true. The new value is in <code>it-&gt;current_value</code>. Values are traversed in increasing orders. For convenience, returns <code>it-&gt;has_value</code>.</p>
 <p>Once <code>it-&gt;has_value</code> is false, <code>roaring_uint32_iterator_advance</code> should not be called on the iterator again. Calling <code>roaring_uint32_iterator_previous</code> is allowed. </p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#a002db154cde9d6f1f0fc9739d4932721">roaring::Roaring64MapSetBitBiDirectionalIterator::operator++()</a>, <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#a0416282aa655d3c59d2d7acd5ffa30a6">roaring::Roaring64MapSetBitBiDirectionalIterator::operator++()</a>, and <a class="el" href="../../dc/d56/roaring_8h.html#ae21109ca88a4e7e5a39f508b5c527f6e">roaring_advance_uint32_iterator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d56/roaring_8h.html#ae21109ca88a4e7e5a39f508b5c527f6e">roaring_advance_uint32_iterator()</a>.</p>
 
 </div>
 </div>
@@ -3774,7 +3789,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Move the iterator to the first value &gt;= <code>val</code>. If there is a such a value, then <code>it-&gt;has_value</code> is true. The new value is in <code>it-&gt;current_value</code>. For convenience, returns <code>it-&gt;has_value</code>. </p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#ac5e926eae57201b1132da84d91bc24bc">roaring::Roaring64MapSetBitBiDirectionalIterator::move_equalorlarger()</a>, and <a class="el" href="../../dc/d56/roaring_8h.html#aa89c342b592e9b2d0e2291e86d7c8289">roaring_move_uint32_iterator_equalorlarger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d56/roaring_8h.html#aa89c342b592e9b2d0e2291e86d7c8289">roaring_move_uint32_iterator_equalorlarger()</a>.</p>
 
 </div>
 </div>
@@ -3796,7 +3811,7 @@ Functions</h2></td></tr>
 <p>Decrement the iterator. If there's a new value, then <code>it-&gt;has_value</code> is true. The new value is in <code>it-&gt;current_value</code>. Values are traversed in decreasing order. For convenience, returns <code>it-&gt;has_value</code>.</p>
 <p>Once <code>it-&gt;has_value</code> is false, <code>roaring_uint32_iterator_previous</code> should not be called on the iterator again. Calling <code>roaring_uint32_iterator_advance</code> is allowed. </p>
 
-<p class="reference">Referenced by <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#ac91216d02ea79af52eda0d378fbcba58">roaring::Roaring64MapSetBitBiDirectionalIterator::operator--()</a>, <a class="el" href="../../d3/d48/classroaring_1_1Roaring64MapSetBitBiDirectionalIterator.html#a9ddc21b129bd005d78eb260d6dc6f713">roaring::Roaring64MapSetBitBiDirectionalIterator::operator--()</a>, and <a class="el" href="../../dc/d56/roaring_8h.html#a70a374d72e8fcfefcdd07deb94987881">roaring_previous_uint32_iterator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../dc/d56/roaring_8h.html#a70a374d72e8fcfefcdd07deb94987881">roaring_previous_uint32_iterator()</a>.</p>
 
 </div>
 </div>
@@ -3833,6 +3848,27 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="reference">Referenced by <a class="el" href="../../dc/d56/roaring_8h.html#aa0807109ab8df7168855f61e985170fc">roaring_read_uint32_iterator()</a>.</p>
+
+</div>
+</div>
+<a id="a273c78a958942b3ebaa38110823fb5b2" name="a273c78a958942b3ebaa38110823fb5b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a273c78a958942b3ebaa38110823fb5b2">&#9670;&#160;</a></span>roaring_unshare_all()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool roaring_unshare_all </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d56/roaring_8h.html#a946b719adc4b8027b3d4aeeb63c64fbc">roaring_bitmap_t</a> *&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Unshare all shared containers. Returns true if any unsharing was performed, false if there were no shared containers. </p>
+
+<p class="reference">Referenced by <a class="el" href="../../dc/d56/roaring_8h.html#a84bd77c991d7520ab336433b3dff4cf5">roaring_bitmap_set_copy_on_write()</a>.</p>
 
 </div>
 </div>

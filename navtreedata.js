@@ -88,22 +88,12 @@ var NAVTREE =
     [ "Mailing list/discussion group", "index.html#autotoc_md56", null ],
     [ "Contributing", "index.html#autotoc_md57", null ],
     [ "References about Roaring", "index.html#autotoc_md58", null ],
-    [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ]
-      ] ]
-    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
-        [ "Related Symbols", "functions_rela.html", null ]
+        [ "All", "functions.html", null ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -121,9 +111,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d4/dcf/classroaring_1_1Roaring64Map.html#a4131558631d223b255af92c81253f750",
-"d8/d01/roaring64_8h.html#adacafc55212545d014e4f2b542f93b09",
-"index.html#autotoc_md56"
+"index.html#autotoc_md21"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
